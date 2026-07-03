@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加密貨幣每日早報 · 2026-07-01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0a0e17; --bg2:#0e1320; --card:#141a28; --card2:#1a2233;
+    --border:#222c42; --border2:#2c3a57;
+    --txt:#e7ecf5; --muted:#8a96ad; --faint:#5c6884;
+    --up:#16c784; --down:#ea3943; --neutral:#f0b90b;
+    --btc:#f7931a; --eth:#627eea; --accent:#3b82f6; --gold:#d4af37;
+    --shadow:0 8px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Inter','Noto Sans TC',system-ui,-apple-system,sans-serif;
+    background:radial-gradient(1200px 600px at 80% -10%,#16203a 0%,transparent 60%),
+               radial-gradient(900px 500px at -10% 0%,#1a1430 0%,transparent 55%),
+               var(--bg);
+    color:var(--txt); line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  .up{color:var(--up)} .down{color:var(--down)} .neu{color:var(--neutral)}
+
+  header{padding:38px 0 26px;border-bottom:1px solid var(--border);margin-bottom:30px;position:relative}
+  .brandrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .logo{width:46px;height:46px;border-radius:13px;flex:none;background:linear-gradient(135deg,var(--btc),#ffb347);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 18px rgba(247,147,26,.4)}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.5px;font-family:'Noto Sans TC',sans-serif}
+  .sub{color:var(--muted);font-size:14px;margin-top:2px}
+  .badges{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .badge{font-size:12px;padding:6px 12px;border-radius:20px;font-weight:600;background:var(--card2);border:1px solid var(--border2);color:var(--muted)}
+  .badge.live{color:var(--up);border-color:rgba(22,199,132,.3);background:rgba(22,199,132,.08)}
+  .badge.live::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--up);margin-right:6px;animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .hero{margin:26px 0;padding:24px 26px;border-radius:18px;background:linear-gradient(135deg,rgba(234,57,67,.12),rgba(59,130,246,.06));border:1px solid var(--border2);position:relative;overflow:hidden}
+  .hero::before{content:'今日定調';position:absolute;top:14px;right:20px;font-size:60px;font-weight:900;color:rgba(255,255,255,.03);font-family:'Noto Sans TC'}
+  .hero .tag{font-size:12px;font-weight:700;color:var(--neutral);letter-spacing:2px}
+  .hero h2{font-size:21px;font-weight:800;margin:8px 0 10px;font-family:'Noto Sans TC';line-height:1.45}
+  .hero p{color:var(--muted);font-size:14.5px;max-width:900px}
+
+  .delta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .dchip{font-size:12px;padding:5px 11px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-weight:600}
+  .dchip b{font-family:'JetBrains Mono'}
+
+  .sec{margin:42px 0 18px;display:flex;align-items:center;gap:12px}
+  .sec .num{width:30px;height:30px;border-radius:9px;flex:none;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#6366f1);color:#fff}
+  .sec h3{font-size:20px;font-weight:800;font-family:'Noto Sans TC'}
+  .sec .note{margin-left:auto;font-size:12px;color:var(--faint)}
+
+  .metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .m{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--border);border-radius:14px;padding:16px 16px 14px;transition:.2s;box-shadow:var(--shadow)}
+  .m:hover{border-color:var(--border2);transform:translateY(-2px)}
+  .m .lab{font-size:12px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:6px}
+  .m .dot{width:8px;height:8px;border-radius:50%}
+  .m .val{font-size:23px;font-weight:700;margin:8px 0 3px;letter-spacing:-.5px}
+  .m .chg{font-size:12.5px;font-weight:600}
+  .m .ext{font-size:11px;color:var(--faint);margin-top:2px}
+
+  .charts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .chart-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--border);border-radius:16px;padding:18px 18px 14px;box-shadow:var(--shadow)}
+  .chart-card h4{font-size:14px;font-weight:700;margin-bottom:3px;font-family:'Noto Sans TC'}
+  .chart-card .csub{font-size:11.5px;color:var(--faint);margin-bottom:12px}
+  .canvas-wrap{position:relative;height:200px}
+  .gauge-center{position:absolute;left:0;right:0;top:58%;transform:translateY(-50%);text-align:center;pointer-events:none}
+  .gauge-center .g-val{font-size:38px;font-weight:800;line-height:1}
+  .gauge-center .g-lab{font-size:13px;font-weight:700;margin-top:2px}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);font-size:13.5px}
+  thead th{background:var(--card2);color:var(--muted);font-weight:600;text-align:left;padding:12px 16px;font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+  tbody td{padding:12px 16px;border-top:1px solid var(--border)}
+  tbody tr:hover{background:rgba(255,255,255,.015)}
+  td.r,th.r{text-align:right}
+  .pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px}
+  .pill.hi{background:rgba(22,199,132,.14);color:var(--up)}
+  .pill.lo{background:rgba(234,57,67,.14);color:var(--down)}
+  .pill.ok{background:rgba(59,130,246,.14);color:#7aa7ff}
+  .pill.warn{background:rgba(240,185,11,.16);color:var(--neutral)}
+  .star{color:var(--neutral)}
+
+  .news-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .news-col{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+  .news-col h4{font-size:14px;font-weight:800;font-family:'Noto Sans TC';margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .ni{padding:11px 0;border-top:1px solid var(--border)}
+  .ni:first-of-type{border-top:none}
+  .ni .nt{font-size:13.5px;font-weight:600;font-family:'Noto Sans TC'}
+  .ni .nd{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .ni .src{font-size:11px;color:var(--faint);margin-top:4px}
+  .hot{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--down);border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:middle}
+
+  .mlist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mi{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:13px 15px}
+  .mi.red{border-left-color:var(--down)} .mi.green{border-left-color:var(--up)} .mi.amber{border-left-color:var(--neutral)}
+  .mi .mt{font-size:13.5px;font-weight:700;font-family:'Noto Sans TC'}
+  .mi .mb{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+  .warn{background:rgba(240,185,11,.06);border:1px solid rgba(240,185,11,.2);border-radius:14px;padding:18px 20px;font-size:13px;color:var(--muted)}
+  .warn b{color:var(--neutral)}
+  .warn ol{margin:8px 0 0 18px} .warn li{margin:5px 0}
+
+  footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--faint)}
+  footer .srcs{line-height:2;margin-top:8px}
+  footer .srcs span{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:3px 9px;margin:0 5px 5px 0;color:var(--muted)}
+
+  @media(max-width:900px){
+    .metrics{grid-template-columns:repeat(2,1fr)}
+    .charts{grid-template-columns:1fr}
+    .news-grid,.mlist{grid-template-columns:1fr}
+    .badges{width:100%;margin-left:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brandrow">
+      <div class="logo">₿</div>
+      <div>
+        <h1>加密貨幣每日早報</h1>
+        <div class="sub">2026 年 7 月 1 日（週三）· 台北時間 UTC+8 · 深度版</div>
+      </div>
+      <div class="badges">
+        <span class="badge live">即時數據</span>
+        <span class="badge">多源交叉驗證</span>
+        <span class="badge">BTC · ETH 大盤</span>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="tag">🎯 今日定調</div>
+      <h2>背離加劇：美股以「2020 年來最強季度」創新高收官，加密卻更深陷極度恐懼——BTC 失守 5.87 萬、比特幣 ETF 締造史上最慘月份。</h2>
+      <p>強勁的 JOLTS 職缺（760 萬）推升美債殖利率反彈、強化 Fed 鷹派立場（新主席 Warsh 點陣圖指向升息），黃金收下 13 年來最差單季。加密全線走弱：恐懼貪婪指數跌至 <b style="color:#e7ecf5">11</b>、6 月比特幣現貨 ETF 淨流出約 <b style="color:#e7ecf5">45 億美元</b>（史上最差）、24h 爆倉 4.47 億美元。監管面兩大震撼：<b style="color:#e7ecf5">台灣三讀通過《虛擬資產服務法》</b>、140+ 巨頭（含 BlackRock、Visa）推分潤穩定幣 Open USD 使 Circle 重挫 16%。</p>
+      <div class="delta">
+        <span class="dchip">BTC <b class="down">$59.5K → $58.6K</b></span>
+        <span class="dchip">恐懼貪婪 <b class="down">15 → 11</b></span>
+        <span class="dchip">10Y 殖利率 <b class="up">4.37% → 4.44%</b>（反轉走升）</span>
+        <span class="dchip">S&P 500 <b class="up">創新高 7,499</b></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- KEY METRICS -->
+  <div class="metrics">
+    <div class="m">
+      <div class="lab"><span class="dot" style="background:var(--btc)"></span>比特幣 BTC</div>
+      <div class="val mono">$58,600</div>
+      <div class="chg down">▼ 1.5% <span style="color:var(--faint)">24h</span></div>
+      <div class="ext mono">7d −6.8% · 月 −20%</div>
+    </div>
+    <div class="m">
+      <div class="lab"><span class="dot" style="background:var(--eth)"></span>以太幣 ETH</div>
+      <div class="val mono">$1,572</div>
+      <div class="chg down">▼ 1.2% <span style="color:var(--faint)">24h</span></div>
+      <div class="ext mono">7d −6.0%</div>
+    </div>
+    <div class="m">
+      <div class="lab"><span class="dot" style="background:#9b8cff"></span>總市值</div>
+      <div class="val mono">$2.13T</div>
+      <div class="chg down">▼ 0.95% <span style="color:var(--faint)">24h</span></div>
+      <div class="ext mono">量 $80.9B</div>
+    </div>
+    <div class="m">
+      <div class="lab"><span class="dot" style="background:var(--down)"></span>恐懼貪婪</div>
+      <div class="val">11<span style="font-size:14px;color:var(--faint)"> /100</span></div>
+      <div class="chg down">極度恐懼</div>
+      <div class="ext mono">前日 15 ▼</div>
+    </div>
+    <div class="m">
+      <div class="lab"><span class="dot" style="background:#4ca3ff"></span>美元指數 DXY</div>
+      <div class="val mono">101.3</div>
+      <div class="chg up">▲ 0.18%</div>
+      <div class="ext">連二月走升</div>
+    </div>
+    <div class="m">
+      <div class="lab"><span class="dot" style="background:var(--gold)"></span>黃金現貨</div>
+      <div class="val mono">$3,971</div>
+      <div class="chg down">▼ 0.91%</div>
+      <div class="ext">13 年來最差季</div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="sec"><span class="num">📈</span><h3>市場視覺化</h3><span class="note">僅以實際抓取數據製圖 · 來源見頁尾</span></div>
+  <div class="charts">
+    <div class="chart-card">
+      <h4>恐懼與貪婪指數</h4>
+      <div class="csub">Alternative.me 11 · CMC 16 · CoinStats 17（分級一致）</div>
+      <div class="canvas-wrap">
+        <canvas id="gauge"></canvas>
+        <div class="gauge-center">
+          <div class="g-val down">11</div>
+          <div class="g-lab down">極度恐懼</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h4>加密市場主導率</h4>
+      <div class="csub">BTC 55.32% · ETH 8.95% · 其他 35.73%</div>
+      <div class="canvas-wrap"><canvas id="dominance"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>比特幣 ETF 每日淨流（百萬美元）</h4>
+      <div class="csub">連 8 日失血 · 6 月全月 −$45 億（史上最慘）</div>
+      <div class="canvas-wrap"><canvas id="etf"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>美股三大指數（6/30 當日 %）</h4>
+      <div class="csub">季度創 2020 年來最強 · 道指連二新高</div>
+      <div class="canvas-wrap"><canvas id="usidx"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>亞歐股市（6/30 當日 %）</h4>
+      <div class="csub">A 股受 PMI 回升激勵 · 歐股創高</div>
+      <div class="canvas-wrap"><canvas id="global"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>本週代幣解鎖 TOP4（百萬美元）</h4>
+      <div class="csub">7/1 為解鎖高峰 · 來源 Bitcoin Sistemi</div>
+      <div class="canvas-wrap"><canvas id="unlock"></canvas></div>
+    </div>
+  </div>
+
+  <!-- CRYPTO OVERVIEW (moved up: 行情為重點) -->
+  <div class="sec"><span class="num">1</span><h3>加密市場總覽</h3><span class="note">行情・情緒・衍生品（7/1 台北早晨即時）</span></div>
+  <table>
+    <thead><tr><th>指標</th><th class="r">數值</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>₿ 比特幣 BTC</td><td class="r mono">~$58,600</td><td>24h −1.5% / 7d −6.8% / 月 −20% / 年 −45%</td></tr>
+      <tr><td>Ξ 以太幣 ETH</td><td class="r mono">~$1,572</td><td>24h −1.2% / 7d −6.0%；ETH/BTC 0.0269</td></tr>
+      <tr><td>🌐 總市值 / 成交量</td><td class="r mono">$2.13T</td><td>24h −0.95%；成交量 $80.9B；BTC 市佔 55.3%</td></tr>
+      <tr><td>😱 恐懼貪婪指數</td><td class="r mono">11</td><td><span class="pill lo">極度恐懼</span> 較前日 15 再降 4</td></tr>
+      <tr><td>💥 24h 爆倉</td><td class="r mono">$4.47 億</td><td>多單 $2.86 億 / 空單 $1.61 億；約 13.0 萬人被清算</td></tr>
+      <tr><td>⚖️ 資金費率</td><td class="r mono">+0.005%/8h</td><td>BTC/ETH 皆中性偏正，未見極端槓桿</td></tr>
+      <tr><td>📉 未平倉合約 OI</td><td class="r mono">BTC $45B</td><td>30 日 −14%；ETH OI $22B（−22%），持續去槓桿</td></tr>
+      <tr><td>💵 穩定幣</td><td class="r mono">USDT $184.4B</td><td>USDC $73.4B；錨定穩定，供應 24h 幾無變動</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ETF -->
+  <div class="sec"><span class="num">2</span><h3>ETF 資金流</h3><span class="note">最新完整交易日 6/29</span></div>
+  <table>
+    <thead><tr><th>項目</th><th class="r">數值</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>比特幣現貨 ETF（6/29）</td><td class="r mono down">−$2.31 億</td><td>連續第 8 日流出</td></tr>
+      <tr><td>以太坊現貨 ETF（6/29）</td><td class="r mono down">−$3,004 萬</td><td>連續第 8 日流出</td></tr>
+      <tr style="background:rgba(234,57,67,.05)"><td>🔴 比特幣 ETF 6 月全月</td><td class="r mono down">−$45 億</td><td><span class="pill lo">史上最慘月份</span> 超越前高（25/2 −$34.8 億）約 29%</td></tr>
+      <tr><td>其中 IBIT（貝萊德）</td><td class="r mono down">−$33 億</td><td>約占 6 月總流出 75%</td></tr>
+      <tr><td>比特幣 ETF 總淨資產</td><td class="r mono">~$70.9B</td><td>自年初逾 $1,100 億高點大幅下滑</td></tr>
+      <tr><td>H1 2026 累計</td><td class="r mono down">~−$50 億</td><td>年度流量首度轉為負值</td></tr>
+    </tbody>
+  </table>
+
+  <!-- NEWS -->
+  <div class="sec"><span class="num">3</span><h3>重大新聞與催化劑</h3><span class="note">過去 24–48 小時</span></div>
+  <div class="news-grid">
+    <div class="news-col">
+      <h4>🏛️ 監管 / 政策</h4>
+      <div class="ni"><div class="nt"><span class="hot">重點</span>🇹🇼 台灣三讀通過《虛擬資產服務法》</div><div class="nd">VASP 須先經金管會核准並分七大類別申領牌照；穩定幣須全額準備並境內信託；非法經營最高 7 年徒刑、1 億元罰款。現有業者 12 個月申請、21 個月取得核准緩衝。</div><div class="src">CoinDesk · 7/1</div></div>
+      <div class="ni"><div class="nt">🇬🇧 英國 FCA 定案規則，穩定幣資本緩衝降至 1%</div><div class="nd">低於歐盟 MiCA 的 2%；仍要求 1:1 高流動資產支持與法定信託。授權申請期 2026/9/30–2027/2/28。</div><div class="src">CoinDesk · 6/30</div></div>
+      <div class="ni"><div class="nt">🇺🇸 美國 SEC 啟動 ETF 規則全面檢討</div><div class="nd">回應加密基金激增與預測市場推進，被視為下半年美國監管框架關鍵一步。</div><div class="src">The Block · 6/30</div></div>
+    </div>
+    <div class="news-col">
+      <h4>💼 機構 / 市場</h4>
+      <div class="ni"><div class="nt"><span class="hot">震撼</span>💥 140+ 巨頭推分潤穩定幣 Open USD</div><div class="nd">創始夥伴含 Stripe、Coinbase、Visa、Mastercard、BlackRock；免費鑄贖、無量能上限，並將儲備利息分潤給夥伴，直擊 USDC 商業模式。Circle（CRCL）單日重挫約 16%、盤後逾 17%。</div><div class="src">CoinDesk · 6/30</div></div>
+      <div class="ni"><div class="nt">📉 比特幣 ETF 迎史上最慘月份</div><div class="nd">6 月淨流出約 45 億美元，總淨資產降至約 709 億；部分資金轉向 SpaceX 等 IPO。</div><div class="src">The Block · 6/30</div></div>
+      <div class="ni"><div class="nt">🇺🇸 川普財務揭露顯示數億美元加密收入</div><div class="nd">2025 揭露文件顯示總統透過加密事業取得數億美元收入，再引利益衝突討論。</div><div class="src">The Block · 6/30</div></div>
+    </div>
+  </div>
+
+  <!-- TRADITIONAL MARKETS -->
+  <div class="sec"><span class="num">4</span><h3>傳統金融市場</h3><span class="note">6/30 收盤 / 7/1 即時</span></div>
+  <table>
+    <thead><tr><th>項目</th><th class="r">數值</th><th class="r">變化</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td>道瓊工業指數</td><td class="r mono">52,319.20</td><td class="r up">+0.26%</td><td><span class="star">★</span> 連二收盤新高、站穩 52,000</td></tr>
+      <tr><td>標普 500</td><td class="r mono">7,499.36</td><td class="r up">+0.79%</td><td>季度創 2020 年來最佳（已交叉驗證修正）</td></tr>
+      <tr><td>那斯達克綜合</td><td class="r mono">26,213.72</td><td class="r up">+1.52%</td><td>科技股領漲</td></tr>
+      <tr><td>美國 10Y 公債殖利率</td><td class="r mono">4.44%</td><td class="r up">+6bps</td><td><span class="star">★</span> 反轉走升，強勁 JOLTS（760 萬）帶動</td></tr>
+      <tr><td>美元指數 DXY</td><td class="r mono">101.3</td><td class="r up">+0.18%</td><td>連二個月走升</td></tr>
+      <tr><td>黃金現貨</td><td class="r mono">$3,971</td><td class="r down">−0.91%</td><td><span class="star">★</span> 收下 13 年來最差單季</td></tr>
+      <tr><td>原油 WTI / Brent</td><td class="r mono">$69.5 / $73.0</td><td class="r">持穩</td><td>霍爾木茲海峽緊張再起為風險</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec"><span class="num">5</span><h3>宏觀背景</h3></div>
+  <div class="mlist">
+    <div class="mi red"><div class="mt">🏦 Fed 鷹派（Warsh 主政）</div><div class="mb">6/17 以 12-0 維持 3.50–3.75% 並刪除寬鬆指引；點陣圖年底中位數上修至 3.8%，半數官員預期年內升息，降息推遲至 2027–28。</div></div>
+    <div class="mi amber"><div class="mt">📈 通膨受中東戰事推升</div><div class="mb">5 月 PCE 年增 4.1%、核心 3.4%，創逾兩年新高，主因美以對伊朗戰爭（2/28 開打）推升油價；Fed 年底 PCE 預測上修至 3.6%。</div></div>
+    <div class="mi green"><div class="mt">💪 經濟與股市韌性</div><div class="mb">Q1 GDP 上修至 +2.1%；歐洲 STOXX 締造 2020 年來最強季度、A 股受 6 月 PMI 升至 50.6 激勵反彈。</div></div>
+    <div class="mi red"><div class="mt">🛢️ 地緣風險再起</div><div class="mb">6 月中美伊停火框架後油價回落，惟月底霍爾木茲海峽再度緊張、油價回升，為通膨與市場的主要下行風險。</div></div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="sec"><span class="num">6</span><h3>本週關注（超級數據週）</h3><span class="note">台北時間 UTC+8</span></div>
+  <table>
+    <thead><tr><th>時間</th><th>事件</th><th class="r">市場預估</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">7/1 17:00</td><td>歐元區 6 月 CPI 快報 / 5 月失業率</td><td class="r mono">3.1% / 6.3%</td></tr>
+      <tr><td class="mono">7/1 20:15</td><td>美 6 月 ADP 民間就業</td><td class="r mono">~+10.5 萬</td></tr>
+      <tr><td class="mono">7/1 22:00</td><td>美 6 月 ISM 製造業 PMI</td><td class="r mono">~53.6</td></tr>
+      <tr><td class="mono">7/1</td><td>🎤 ECB Sintra 論壇末日座談：Warsh × Lagarde × Bailey</td><td class="r"><span class="pill ok">焦點</span></td></tr>
+      <tr><td class="mono">7/2 02:00</td><td>📄 FOMC 6 月會議紀要</td><td class="r"><span class="pill ok">焦點</span></td></tr>
+      <tr style="background:rgba(234,57,67,.05)"><td class="mono">7/2 20:30</td><td>🔥 <b>美 6 月非農 NFP</b>（提前）+ 失業率</td><td class="r mono">+11 萬 / 4.3%</td></tr>
+      <tr><td class="mono">7/2 / 7/3</td><td>🇺🇸 美股 7/2 提前收盤、7/3 獨立日全日休市</td><td class="r">流動性低</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12.5px;color:var(--muted);margin-top:12px">🔓 <b style="color:var(--txt)">本週代幣解鎖</b>：7/1 為高峰 — Audiera BEAT ~$5,156 萬（佔流通 7.32%）、Kite KITE ~$1,326 萬、EigenCloud EIGEN ~$843 萬；Ethena ENA（7/2 ~$709 萬）。近期關注 Pump.fun PUMP 7/12 大額解鎖 825 億枚。低流通量代幣賣壓需留意。</p>
+
+  <!-- VERIFICATION -->
+  <div class="sec"><span class="num">7</span><h3>關鍵數字交叉驗證</h3><span class="note">主來源 vs 第二獨立來源</span></div>
+  <table>
+    <thead><tr><th>指標</th><th>主來源</th><th>第二來源</th><th class="r">結果</th></tr></thead>
+    <tbody>
+      <tr><td>BTC</td><td class="mono">CoinGecko $58,541</td><td class="mono">Binance $58,686 / CMC $58,605 / Kraken $58,606</td><td class="r"><span class="pill hi">✓ 一致</span></td></tr>
+      <tr><td>ETH</td><td class="mono">CoinGecko $1,571.71</td><td class="mono">Binance $1,571.32 / CMC $1,572.76</td><td class="r"><span class="pill hi">✓ 一致</span></td></tr>
+      <tr style="background:rgba(240,185,11,.06)"><td>S&amp;P 500</td><td class="mono down">TheStreet 7,449.36 ✗</td><td class="mono up">Yahoo / Investing / Google 7,499.36</td><td class="r"><span class="pill warn">⚠ 已修正</span></td></tr>
+      <tr><td>10Y 殖利率</td><td class="mono">Investing 4.467%</td><td class="mono">CNBC 4.441%</td><td class="r"><span class="pill hi">✓ 一致</span></td></tr>
+      <tr><td>DXY</td><td class="mono">Investing 101.35</td><td class="mono">Trading Economics 101.32</td><td class="r"><span class="pill hi">✓ 一致</span></td></tr>
+      <tr><td>恐懼貪婪</td><td class="mono">Alternative.me 11</td><td class="mono">CMC 16 / CoinStats 17</td><td class="r"><span class="pill hi">✓ 分級一致</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- LIMITATIONS -->
+  <div class="sec"><span class="num">⚠️</span><h3>數據說明與限制</h3></div>
+  <div class="warn">
+    <b>誠實揭露：</b>
+    <ol>
+      <li><b>交叉驗證修正</b>：標普 500 收盤有單一來源誤植為 7,449.36，經 Yahoo／Investing.com／Google Finance 三源核對＋前日收盤 7,440.43 推算（+0.79% = +58.93 點），正確值為 <b>7,499.36</b>，已採用。</li>
+      <li><b>付費牆</b>：彭博、路透、CNBC、WSJ 部分頁面有付費牆或反爬封鎖，數字改以可公開存取的權威來源（Yahoo Finance、Trading Economics、CoinGecko/CoinDesk/The Block 等）交叉驗證。</li>
+      <li><b>衍生品數據</b>：交易所即時 API 部分遭地理封鎖（Binance 451、Coinglass 403），資金費率/OI/爆倉改用次級權威報導（CoinStats、Binance Square）佐證，信心中等。</li>
+      <li><b>時點</b>：美股/歐股為 6/30 收盤、ETF 為 6/29 最新公布值；加密與利率匯率為 7/1 早晨即時。</li>
+    </ol>
+  </div>
+
+  <footer>
+    <div>📌 <b style="color:var(--muted)">本報告由多 agent 並行抓取 14 個來源、交叉驗證後生成（共 185 次查詢）。所有數字均為即時工具抓取結果，非記憶生成。投資有風險，本報告僅供參考，不構成投資建議。</b></div>
+    <div class="srcs">
+      <span>Reuters</span><span>CNBC</span><span>Yahoo Finance</span><span>Trading Economics</span><span>Investing.com</span><span>U.S. BEA / BLS / Fed</span><span>CoinDesk</span><span>The Block</span><span>Crypto Briefing</span><span>CoinGecko</span><span>Alternative.me</span><span>Binance Square</span><span>DefiLlama</span><span>Bitcoin Sistemi</span><span>ECB / Eurostat</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+Chart.defaults.color = '#8a96ad';
+Chart.defaults.font.family = "'Inter','Noto Sans TC',sans-serif";
+Chart.defaults.font.size = 11;
+const grid = 'rgba(255,255,255,.06)';
+const UP='#16c784', DOWN='#ea3943', NEU='#f0b90b', BTC='#f7931a', ETH='#627eea';
+
+// Gauge — value 11
+new Chart(document.getElementById('gauge'),{
+  type:'doughnut',
+  data:{datasets:[{
+    data:[11,14,20,20,35],
+    backgroundColor:['#ea3943','#ff7a45','#f0b90b','#7ed957','#16c784'],
+    borderWidth:0, circumference:180, rotation:270, cutout:'72%'
+  }]},
+  options:{plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:true,maintainAspectRatio:false}
+});
+
+// Dominance
+new Chart(document.getElementById('dominance'),{
+  type:'doughnut',
+  data:{labels:['BTC','ETH','其他'],datasets:[{
+    data:[55.32,8.95,35.73],
+    backgroundColor:[BTC,ETH,'#3a4b5a'],borderColor:'#141a28',borderWidth:2,cutout:'62%'
+  }]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}},
+    tooltip:{callbacks:{label:c=>c.label+': '+c.parsed+'%'}}}}
+});
+
+// ETF daily flows
+new Chart(document.getElementById('etf'),{
+  type:'bar',
+  data:{labels:['6/23','6/24','6/25','6/26','6/29'],datasets:[{
+    data:[-113.8,-469,-691.7,-445,-231],
+    backgroundColor:DOWN,borderRadius:5,maxBarThickness:40
+  }]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y+'M'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>v+'M'}}}}
+});
+
+// US indices
+new Chart(document.getElementById('usidx'),{
+  type:'bar',
+  data:{labels:['道瓊','標普500','那斯達克'],datasets:[{
+    data:[0.26,0.79,1.52],backgroundColor:UP,borderRadius:5,maxBarThickness:46
+  }]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'+'+c.parsed.y+'%'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>v+'%'}}}}
+});
+
+// Global markets (daily)
+const gData=[0.9,0.5,2.48,-0.6,1.5];
+new Chart(document.getElementById('global'),{
+  type:'bar',
+  data:{labels:['日經','上證','深證','恒生','歐STOXX50'],datasets:[{
+    data:gData,backgroundColor:gData.map(v=>v>=0?UP:DOWN),borderRadius:5,maxBarThickness:38
+  }]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y+'%'}}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:grid},ticks:{callback:v=>v+'%'}}}}
+});
+
+// Token unlocks
+new Chart(document.getElementById('unlock'),{
+  type:'bar',
+  data:{labels:['BEAT','KITE','EIGEN','ENA'],datasets:[{
+    data:[51.56,13.26,8.43,7.09],backgroundColor:NEU,borderRadius:5,maxBarThickness:40
+  }]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.x+'M'}}},
+    scales:{x:{grid:{color:grid},ticks:{callback:v=>'$'+v+'M'}},y:{grid:{display:false}}}}
+});
+</script>
+</body>
+</html>
