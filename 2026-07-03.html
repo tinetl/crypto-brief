@@ -9,21 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root{
-    --bg:#07090d; --panel:#0f131b; --panel2:#141a24; --bd:#212936; --bd2:#2c3644;
-    --tx:#d9dee7; --mut:#89909f; --faint:#5c6472;
-    --up:#22c55e; --upbg:rgba(34,197,94,.12); --down:#f6465d; --downbg:rgba(246,70,93,.12); --flat:#89909f;
-    --amber:#e0a83c; --cyan:#38bdf8; --violet:#a78bfa;
-  }
+  :root{--bg:#07090d;--panel:#0f131b;--panel2:#141a24;--bd:#212936;--bd2:#2c3644;--tx:#d9dee7;--mut:#89909f;--faint:#5c6472;
+    --up:#22c55e;--upbg:rgba(34,197,94,.12);--down:#f6465d;--downbg:rgba(246,70,93,.12);--flat:#89909f;--amber:#e0a83c;--cyan:#38bdf8;--violet:#a78bfa;}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--tx);font-family:'Inter','Noto Sans SC',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;
     background-image:radial-gradient(900px 500px at 90% -10%,rgba(224,168,60,.06),transparent 60%),radial-gradient(700px 400px at -5% 0%,rgba(56,189,248,.05),transparent 55%);padding:26px 14px 70px}
   .wrap{max-width:1000px;margin:0 auto}
   .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
-  .up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+  .up{color:var(--up)}.down{color:var(--down)}.flat{color:var(--flat)}
   .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
-
-  /* Header */
   header{border:1px solid var(--bd);background:linear-gradient(180deg,#0f131b,#0b0e14);padding:16px 20px;position:relative;overflow:hidden}
   header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--amber),var(--cyan))}
   .htop{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -31,36 +25,26 @@
   .htop .st{font-size:11px;color:var(--up);font-family:'JetBrains Mono';border:1px solid rgba(34,197,94,.3);background:var(--upbg);padding:2px 8px;border-radius:3px}
   .hmeta{margin-left:auto;font-family:'JetBrains Mono';font-size:11.5px;color:var(--mut)}
   .cover{font-size:11.5px;color:var(--faint);margin-top:7px}
-
-  /* Ticker ribbon */
   .tick{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--bd);border-top:none;background:#0b0e14}
-  .tick>div{padding:8px 11px;border-right:1px solid var(--bd)}
-  .tick>div:last-child{border-right:none}
+  .tick>div{padding:8px 11px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd)}
   .tick .t{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.06em;color:var(--faint);text-transform:uppercase}
   .tick .p{font-family:'JetBrains Mono';font-size:15px;font-weight:700;margin-top:2px}
   .tick .d{font-family:'JetBrains Mono';font-size:10.5px;margin-top:1px}
-
-  /* Panels */
   .panel{border:1px solid var(--bd);background:var(--panel);margin-top:14px}
   .ph{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--bd);background:#0c1017}
   .ph .no{font-family:'JetBrains Mono';font-weight:700;color:var(--amber);font-size:13px}
   .ph h2{font-family:'Noto Sans SC';font-weight:700;font-size:15.5px}
   .ph .tag{margin-left:auto;font-family:'JetBrains Mono';font-size:10.5px;color:var(--faint)}
   .pb{padding:15px 16px}
-
-  /* The Call */
   .call{border:1px solid var(--bd2);background:linear-gradient(180deg,#12141a,#0e1117);margin-top:14px;padding:18px 20px;position:relative}
   .call::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--amber)}
   .call h2{font-family:'Noto Sans SC';font-weight:900;font-size:20px;line-height:1.35;margin:8px 0 12px;color:#f2f4f8}
-  .call p{font-size:14px;color:#c3c9d4;margin-bottom:9px}
-  .call b{color:#f2f4f8}
+  .call p{font-size:14px;color:#c3c9d4;margin-bottom:9px}.call b{color:#f2f4f8}
   .call .em{background:var(--downbg);color:#ffd0d5;padding:1px 4px;border-radius:2px;font-weight:600}
   .legs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);margin-top:14px}
   .legs>div{background:var(--panel);padding:10px 14px}
   .legs .t{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.08em;color:var(--amber);text-transform:uppercase}
   .legs .d{font-size:12.5px;color:var(--mut);margin-top:3px}
-
-  /* Tables */
   table{width:100%;border-collapse:collapse;font-size:13px}
   thead th{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:left;padding:7px 12px;border-bottom:1px solid var(--bd)}
   th.r,td.r{text-align:right}
@@ -68,123 +52,128 @@
   tbody tr:last-child td{border-bottom:none}
   td.k{color:var(--mut)}
   .read{font-size:13.5px;color:#c3c9d4;padding:12px 16px 0}
+  .read.pb0{padding:12px 0 0}
   .read .ld{color:var(--amber);font-weight:600;font-family:'Noto Sans SC'}
   .badge{display:inline-block;font-family:'JetBrains Mono';font-size:9px;font-weight:700;padding:1px 5px;border-radius:2px;vertical-align:middle;margin-left:6px}
   .b-up{background:var(--upbg);color:var(--up);border:1px solid rgba(34,197,94,.3)}
   .b-dn{background:var(--downbg);color:var(--down);border:1px solid rgba(246,70,93,.3)}
   .b-am{background:rgba(224,168,60,.12);color:var(--amber);border:1px solid rgba(224,168,60,.3)}
-
-  /* two-col */
+  .b-live{background:rgba(56,189,248,.12);color:var(--cyan);border:1px solid rgba(56,189,248,.3)}
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .cols3{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
-
-  /* charts */
   .cbox{border:1px solid var(--bd);background:var(--panel);padding:12px 14px 8px}
   .cbox h4{font-family:'Noto Sans SC';font-size:12.5px;font-weight:700}
   .cbox .cs{font-size:10.5px;color:var(--faint);margin-bottom:8px;font-family:'JetBrains Mono'}
-  .cw{position:relative;height:160px} .cw.sm{height:140px}
-  .gc{position:absolute;inset:0;top:56%;text-align:center;pointer-events:none}
-  .gc .gv{font-size:30px;font-weight:800;font-family:'JetBrains Mono';line-height:1}
-  .gc .gl{font-size:11px;font-weight:700}
-
-  /* price ladder */
-  .ladder{font-family:'JetBrains Mono';font-size:12.5px}
-  .ladder .row{display:flex;align-items:center;gap:10px;padding:5px 10px;border-bottom:1px solid #171d27}
+  .cw{position:relative;height:160px}.cw.sm{height:150px}
+  .ladder{font-family:'JetBrains Mono';font-size:12px}
+  .ladder .row{display:flex;align-items:center;gap:9px;padding:4px 9px;border-bottom:1px solid #171d27}
   .ladder .row:last-child{border-bottom:none}
-  .ladder .px{width:82px;text-align:right;font-weight:700}
+  .ladder .px{width:74px;text-align:right;font-weight:700}
   .ladder .bar{flex:1;height:6px;border-radius:3px;background:#151a23;position:relative;overflow:hidden}
   .ladder .bar span{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
-  .ladder .tg{font-size:11px;color:var(--mut)}
-  .ladder .res .px{color:var(--down)} .ladder .sup .px{color:var(--up)}
-  .ladder .now{background:rgba(224,168,60,.10)}
-  .ladder .now .px{color:var(--amber)} .ladder .now .tg{color:var(--amber);font-weight:700}
-
-  /* news */
-  .ni{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid #191f2a}
-  .ni:last-child{border-bottom:none}
+  .ladder .tg{font-size:10.5px;color:var(--mut);width:120px}
+  .ladder .res .px{color:var(--down)}.ladder .sup .px{color:var(--up)}
+  .ladder .oc .px{color:var(--violet)}.ladder .oc .tg{color:var(--violet)}
+  .ladder .now{background:rgba(224,168,60,.10)}.ladder .now .px{color:var(--amber)}.ladder .now .tg{color:var(--amber);font-weight:700}
+  .ni{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid #191f2a}.ni:last-child{border-bottom:none}
   .ni .im{flex:none;width:30px;text-align:center;font-family:'JetBrains Mono';font-size:9px;font-weight:700;padding:2px 0;height:fit-content;border-radius:2px}
-  .im-h{background:var(--downbg);color:var(--down)} .im-m{background:rgba(224,168,60,.12);color:var(--amber)} .im-b{background:rgba(56,189,248,.1);color:var(--cyan)}
-  .ni .nt{font-size:13.5px;font-weight:600;font-family:'Noto Sans SC'}
-  .ni .nd{font-size:12px;color:var(--mut);margin-top:2px}
+  .im-h{background:var(--downbg);color:var(--down)}.im-m{background:rgba(224,168,60,.12);color:var(--amber)}.im-b{background:rgba(56,189,248,.1);color:var(--cyan)}
+  .ni .nt{font-size:13.5px;font-weight:600;font-family:'Noto Sans SC'}.ni .nd{font-size:12px;color:var(--mut);margin-top:2px}
   .ni .sc{font-size:10.5px;color:var(--faint);font-family:'JetBrains Mono';margin-top:3px}
-
   .box{border:1px solid var(--bd);background:var(--panel2);padding:12px 14px}
   .box h5{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
-  .box.bull h5{color:var(--up)} .box.bear h5{color:var(--down)}
-  .box ul{list-style:none;font-size:12.5px;color:#c3c9d4} .box ul li{margin:6px 0;padding-left:15px;position:relative}
+  .box.bull h5{color:var(--up)}.box.bear h5{color:var(--down)}
+  .box ul{list-style:none;font-size:12.5px;color:#c3c9d4}.box ul li{margin:6px 0;padding-left:15px;position:relative}
   .box ul li::before{content:'▸';position:absolute;left:0}
-  .box.bull ul li::before{color:var(--up)} .box.bear ul li::before{color:var(--down)}
-
+  .box.bull ul li::before{color:var(--up)}.box.bear ul li::before{color:var(--down)}
   .note{font-family:'Inter','Noto Sans SC';font-size:11.5px;color:var(--mut);background:#0c1017;border:1px solid var(--bd);padding:12px 15px;margin-top:14px}
   .note b{color:var(--amber)}
   footer{margin-top:18px;padding:14px 4px;border-top:1px solid var(--bd);font-size:11px;color:var(--faint);font-family:'JetBrains Mono'}
-  footer .src{line-height:1.9;margin-top:5px}
-  .disc{font-style:italic;margin-top:8px;color:var(--faint)}
-
-  @media(max-width:840px){
-    .tick{grid-template-columns:repeat(3,1fr)} .tick>div{border-bottom:1px solid var(--bd)}
-    .cols,.cols3,.legs{grid-template-columns:1fr} .hmeta{margin-left:0;width:100%}
-  }
+  footer .src{line-height:1.9;margin-top:5px}.disc{font-style:italic;margin-top:8px;color:var(--faint)}
+  @media(max-width:840px){.tick{grid-template-columns:repeat(3,1fr)}.cols,.cols3,.legs{grid-template-columns:1fr}.hmeta{margin-left:0;width:100%}.ladder .tg{width:90px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div class="htop">
-      <h1>加密 × 宏观 · 终端简报</h1>
-      <span class="st">● LIVE</span>
-      <span class="hmeta">2026-07-03 (周五) · 台北 UTC+8 · BTC/ETH 大盘</span>
-    </div>
-    <div class="cover">覆盖区间：美股 2026-07-02 收盘（美股 7/3 独立日观察日休市）；加密 · 利率 · 汇率 · 商品为 7/3 台北早晨即时；多源交叉验证。</div>
+    <div class="htop"><h1>加密 × 宏观 · 终端简报</h1><span class="st">● LIVE</span>
+      <span class="hmeta">2026-07-03 (周五) · 台北 UTC+8 · BTC/ETH 大盘</span></div>
+    <div class="cover">美股 2026-07-02 收盘（7/3 独立日观察日休市）；加密/衍生品/链上为 7/3 即时；衍生品(Deribit)、链上(bitcoin-data.com)、净流动性(FRED) 均为实抓数据。</div>
   </header>
 
-  <!-- TICKER -->
   <div class="tick">
     <div><div class="t">BTC/USD</div><div class="p mono">61,400</div><div class="d up">+0.7% · 7d +2.6%</div></div>
     <div><div class="t">ETH/USD</div><div class="p mono">1,706</div><div class="d up">+4.2% · 7d +9.8%</div></div>
     <div><div class="t">ETH/BTC</div><div class="p mono">.0278</div><div class="d up">▲ ETH 领涨</div></div>
+    <div><div class="t">资金费率8h</div><div class="p mono">+0.006%</div><div class="d flat">APR +6.5% 中性</div></div>
+    <div><div class="t">DVOL</div><div class="p mono">40.2</div><div class="d flat">低体制</div></div>
+    <div><div class="t">MVRV</div><div class="p mono">1.17</div><div class="d flat">乐观低区</div></div>
     <div><div class="t">恐惧贪婪</div><div class="p mono">21</div><div class="d down">极度恐惧↑</div></div>
+    <div><div class="t">STH成本</div><div class="p mono down">69,349</div><div class="d down">现价套牢</div></div>
+    <div><div class="t">LTH成本</div><div class="p mono up">49,185</div><div class="d up">深度获利</div></div>
+    <div><div class="t">净流动性</div><div class="p mono">$5.82T</div><div class="d down">▼ 同比 −$314B</div></div>
     <div><div class="t">DXY</div><div class="p mono">101.4</div><div class="d down">→100.8 走软</div></div>
     <div><div class="t">US10Y</div><div class="p mono">4.47%</div><div class="d down">▼ 走低</div></div>
-    <div><div class="t">黄金</div><div class="p mono">4,137</div><div class="d up">+0.4%</div></div>
     <div><div class="t">道琼斯</div><div class="p mono">52,980</div><div class="d up">+1.14% 新高</div></div>
-    <div><div class="t">标普500</div><div class="p mono">7,499</div><div class="d up">+0.2%</div></div>
-    <div><div class="t">纳斯达克</div><div class="p mono">科技↓</div><div class="d down">内部轮动</div></div>
-    <div><div class="t">WTI 原油</div><div class="p mono">67.5</div><div class="d down">−2%</div></div>
-    <div><div class="t">BTC OI</div><div class="p mono">$46B</div><div class="d flat">24h爆仓$114M</div></div>
     <div><div class="t">BTC ETF(7/1)</div><div class="p mono down">−$277M</div><div class="d down">IBIT −$224M</div></div>
-    <div><div class="t">ETH ETF(7/1)</div><div class="p mono up">+$14.8M</div><div class="d up">ETHA 主导</div></div>
   </div>
 
-  <!-- THE CALL -->
   <div class="call">
     <div class="lbl">核心观点 / THE CALL</div>
-    <h2>弱非农重定价美联储，风险资产共振反弹——但这波「涨得可疑」：宏观现货驱动，机构与强庄未回场。</h2>
-    <p>6 月非农仅增 <b>5.7 万</b>（不及预期 11 万的一半）、前两月再下修 7.4 万；Warsh 称通胀风险软化，Polymarket 对 2026 再加息押注由 <b>54%→47%</b>。利率预期松动 → 实际收益率与美元回落 → 黄金、加密、道指共振。加密领涨且 <b>ETH（+4.2%）跑赢 BTC（+0.7%）</b>、ETH/BTC 上行，属风险偏好回升的高 beta 内部轮动。</p>
-    <p><span class="em">关键矛盾：价格反弹之际，BTC 现货 ETF 仍净流出（7/1 −2.77 亿、IBIT −2.24 亿），链上鲸鱼借反弹派发、现货成交量为 2023 年 11 月来最薄</span>——即本波由「宏观利率预期＋杠杆/现货」驱动，<b>缺乏机构配置与强庄承接</b>，反弹质量存疑。</p>
-    <p><b>策略含义（非投资建议）：</b>短线中性偏多、超跌反弹性质，结构未转多。确认信号＝<b>收复并站稳 $62K + BTC ETF 转净流入</b>；证伪＝<b>失守 $60K</b> → 下看 $58K / $55K。追高价值有限，回报-风险在 $60K 上方趋于对称。</p>
+    <h2>弱非农重定价美联储，风险资产共振反弹——但「涨得可疑」：利率预期转鸽 vs 底层流动性收紧，且短期持有者集体套牢。</h2>
+    <p>6 月非农仅增 <b>5.7 万</b>、前两月下修 7.4 万；Warsh 称通胀软化，2026 加息押注 <b>54%→47%</b>。利率预期松动 → 实际收益率/美元回落 → 黄金、加密、道指共振，ETH（+4.2%）领涨 BTC（+0.7%）。<b>但两条硬约束：</b>① <span class="em">美联储净流动性 $5.82T、同比降 $314B、RRP 枯竭——利率转鸽之际，底层美元流动性其实在退潮</span>；② <span class="em">链上短期持有者成本 $69,349 高于现价，recent buyers 集体套牢，$69K 成上方供给墙</span>。</p>
+    <p>叠加 <b>BTC 现货 ETF 仍净流出（7/1 −2.77 亿）、鲸鱼借反弹派发、现货量为 2023/11 来最薄</b>——本波由宏观利率预期＋现货驱动，缺乏机构与强庄承接，反弹质量存疑。<b>但估值不高（MVRV 1.17 / NUPL 0.145 / MVRV-Z 0.25，乐观低区）＋杠杆未过热（资金费率近中性、30d 累积略负）＝下行有估值缓冲。</b></p>
+    <p><b>策略含义（非投资建议）：</b>短线中性偏多的超跌反弹，结构未转多。做多升级条件＝<b>收复 $62K 且 BTC ETF 转净流入</b>；趋势确认的更高门槛＝<b>站上 STH 成本 $69K</b>。证伪＝<b>失守 $60K</b> → 下看 $58K / Realized $52.6K。期权侧：DVOL 40 偏低、期限 contango、前端便宜 → <b>买入 7–30d 腹部 IV 布局 7 月中 CPI</b> 性价比高。</p>
     <div class="legs">
-      <div><div class="t">驱动 Driver</div><div class="d">弱就业→美联储转鸽；加息概率 54%→47%，实际收益率/美元双降。</div></div>
-      <div><div class="t">结构 Structure</div><div class="d">ETH 领涨、与科技股脱钩上行；高 beta 内部轮动。</div></div>
-      <div><div class="t">风险 Risk</div><div class="d">ETF 未回补＋鲸鱼派发＋7 月中 CPI＋假期薄流动性。</div></div>
+      <div><div class="t">驱动 Driver</div><div class="d">弱就业→鸽派重定价；实际收益率/美元双降。</div></div>
+      <div><div class="t">约束 Constraint</div><div class="d">净流动性退潮＋STH 套牢＋ETF 流出＝无承接。</div></div>
+      <div><div class="t">缓冲 Cushion</div><div class="d">估值乐观低区＋杠杆不过热，下行有底。</div></div>
     </div>
   </div>
 
-  <!-- 01 MACRO / LIQUIDITY -->
+  <!-- 01 MACRO + LIQUIDITY -->
   <div class="panel">
-    <div class="ph"><span class="no">01</span><h2>宏观驱动与美联储流动性</h2><span class="tag">数据 2026-07-02</span></div>
-    <div class="cols3">
+    <div class="ph"><span class="no">01</span><h2>宏观驱动与美联储流动性</h2><span class="tag">NFP 7/2 · 净流动性 FRED</span></div>
+    <div class="cols">
       <table>
-        <thead><tr><th>指标（6 月 / 最新）</th><th class="r">实际</th><th class="r">预期/前值</th></tr></thead>
+        <thead><tr><th>就业/政策</th><th class="r">实际</th><th class="r">预期/前值</th></tr></thead>
         <tbody>
-          <tr><td class="k">非农就业 NFP</td><td class="r mono down">+5.7 万</td><td class="r mono">预期 ~11 万</td></tr>
+          <tr><td class="k">6 月非农 NFP</td><td class="r mono down">+5.7 万</td><td class="r mono">预期 ~11 万</td></tr>
           <tr><td class="k">失业率</td><td class="r mono">4.2%</td><td class="r mono">前 4.3%</td></tr>
-          <tr><td class="k">平均时薪 (同比)</td><td class="r mono">+3.5%</td><td class="r mono">符合</td></tr>
+          <tr><td class="k">时薪同比</td><td class="r mono">+3.5%</td><td class="r mono">符合</td></tr>
           <tr><td class="k">前两月修正</td><td class="r mono down">−7.4 万</td><td class="r mono">—</td></tr>
           <tr><td class="k">2026 再加息概率</td><td class="r mono down">47%</td><td class="r mono">前日 54%</td></tr>
-          <tr><td class="k">7/29 FOMC 维持概率</td><td class="r mono">~70%+</td><td class="r mono">FedWatch</td></tr>
-          <tr><td class="k">联邦基金利率</td><td class="r mono">3.50-3.75%</td><td class="r mono">6/17 维持</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th>美联储流动性 <span class="badge b-live">FRED</span></th><th class="r">水平</th><th class="r">趋势</th></tr></thead>
+        <tbody>
+          <tr><td class="k">净流动性 (WALCL−TGA−RRP)</td><td class="r mono">$5.82T</td><td class="r down">同比 −$314B</td></tr>
+          <tr><td class="k">Fed 总资产 WALCL</td><td class="r mono">$6.74T</td><td class="r down">QT 中</td></tr>
+          <tr><td class="k">财政部 TGA</td><td class="r mono">$919B</td><td class="r down">抽水</td></tr>
+          <tr><td class="k">逆回购 RRP</td><td class="r mono">$2B</td><td class="r down">已枯竭</td></tr>
+          <tr><td class="k">银行准备金</td><td class="r mono">$2.95T</td><td class="r down">↓自 $3.37T</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="read"><span class="ld">解读（张力所在）：</span>「坏消息即好消息」——弱就业压低紧缩压力、市场交易「更鸽」。<b>但这只是「利率预期」层面；「实际流动性」层面正相反：</b>净流动性同比降 $314B、RRP 枯竭至 $2B、准备金滑向 $2.95T——QT＋TGA 抽水使底层美元流动性持续退潮。<b>利率预期转鸽 vs 实际流动性收紧的背离，正是风险资产反弹「涨得可疑」的宏观根源</b>；缺乏增量流动性，反弹更依赖情绪与仓位而非资金面。下周中 6 月 CPI 是第一道检验。</div>
+  </div>
+
+  <!-- 02 CROSS ASSET -->
+  <div class="panel">
+    <div class="ph"><span class="no">02</span><h2>跨资产传导</h2><span class="tag">7/2 收盘 · 7/3 即时</span></div>
+    <div class="cols3">
+      <table>
+        <thead><tr><th>资产</th><th class="r">水平</th><th class="r">变动</th></tr></thead>
+        <tbody>
+          <tr><td class="k">美 10Y 收益率</td><td class="r mono">4.47%</td><td class="r down">走低</td></tr>
+          <tr><td class="k">美元 DXY</td><td class="r mono">101.4→100.8</td><td class="r down">走软</td></tr>
+          <tr><td class="k">黄金</td><td class="r mono">$4,137</td><td class="r up">+0.4%</td></tr>
+          <tr><td class="k">WTI 原油</td><td class="r mono">~$67.5</td><td class="r down">−2%</td></tr>
+          <tr><td class="k">道琼斯</td><td class="r mono">52,980 <span class="badge b-am">新高</span></td><td class="r up">+1.14%</td></tr>
+          <tr><td class="k">标普 500</td><td class="r mono">7,499</td><td class="r up">+0.2%</td></tr>
+          <tr><td class="k">纳斯达克(科技)</td><td class="r mono">承压</td><td class="r down">走弱</td></tr>
         </tbody>
       </table>
       <div class="cbox">
@@ -193,145 +182,133 @@
         <div class="cw"><canvas id="cross"></canvas></div>
       </div>
     </div>
-    <div class="read"><span class="ld">解读：</span>典型「坏消息即好消息」——就业裂缝压低美联储紧缩压力，Warsh「通胀软化」强化转鸽。流动性含义：<b>实际收益率下行、美元走软 = 金融条件边际转松</b>，利多久期、黄金与加密。但市场当前只交易「更鸽」、暂时无视「增长放缓」的另一面；下周中 <b>6 月 CPI</b> 是第一道检验。（注：净流动性/弹性指标无实时公开源，此处以利率预期＋收益率/美元方向定性。）</div>
+    <div class="read"><span class="ld">解读：</span>美股内部<b>轮动</b>——道指创高、科技承压，资金由昂贵成长股转向价值/顺周期。<b>加密与科技脱钩上行</b>：BTC 未随纳指回落 → 宏观（利率）而非科技 beta 驱动。黄金反弹、美元/油价同步走弱，三者共同印证「通胀降温＋美联储更鸽」主线。</div>
   </div>
 
-  <!-- 02 CROSS ASSET -->
+  <!-- 03 CRYPTO + TECH + ONCHAIN LEVELS -->
   <div class="panel">
-    <div class="ph"><span class="no">02</span><h2>跨资产传导</h2><span class="tag">7/2 收盘 · 7/3 即时</span></div>
-    <table>
-      <thead><tr><th>资产</th><th class="r">水平</th><th class="r">变动</th><th>信号</th></tr></thead>
-      <tbody>
-        <tr><td class="k">美 10Y 收益率</td><td class="r mono">4.47%</td><td class="r down">走低（盘中试 4.5%）</td><td>实际收益率回落，利风险资产</td></tr>
-        <tr><td class="k">美元指数 DXY</td><td class="r mono">101.4→100.8</td><td class="r down">走软</td><td>弱就业压制美元，利 BTC/黄金</td></tr>
-        <tr><td class="k">黄金现货</td><td class="r mono">$4,137</td><td class="r up">+0.4%</td><td>站上 $4,100，为鸽派叙事背书</td></tr>
-        <tr><td class="k">WTI 原油</td><td class="r mono">~$67.5</td><td class="r down">−2%</td><td>霍尔木兹通行＋美伊谈判，压低通胀预期</td></tr>
-        <tr><td class="k">道琼斯工业</td><td class="r mono">52,980 <span class="badge b-am">新高</span></td><td class="r up">+1.14%</td><td>价值/顺周期领涨</td></tr>
-        <tr><td class="k">标普 500</td><td class="r mono">7,499</td><td class="r up">+0.2%</td><td>大致持平</td></tr>
-        <tr><td class="k">纳斯达克（科技）</td><td class="r mono">承压</td><td class="r down">走弱</td><td>成长股回吐、资金轮出</td></tr>
-      </tbody>
-    </table>
-    <div class="read"><span class="ld">解读：</span>美股内部明显<b>轮动</b>——道指创高、科技承压，反映「软着陆＋美联储转鸽」下资金由昂贵成长股转向落后的价值/顺周期。<b>加密与科技股「脱钩上行」</b>：BTC 未随纳指回落，说明本波由宏观（利率）而非科技 beta 驱动。黄金反弹、美元与油价同步走弱，三者共同指向「通胀降温＋美联储更鸽」主线，交叉印证度高。</div>
-  </div>
-
-  <!-- 03 CRYPTO + TECHNICALS -->
-  <div class="panel">
-    <div class="ph"><span class="no">03</span><h2>加密行情与技术面关键位</h2><span class="tag">7/3 即时</span></div>
+    <div class="ph"><span class="no">03</span><h2>加密行情 · 技术位 × 链上成本位</h2><span class="tag">7/3 即时</span></div>
     <div class="cols3">
       <table>
         <thead><tr><th>指标</th><th class="r">数值</th><th class="r">24h</th><th class="r">7d</th></tr></thead>
         <tbody>
           <tr><td class="k">BTC</td><td class="r mono">$61,400</td><td class="r up">+0.7%</td><td class="r up">+2.6%</td></tr>
-          <tr><td class="k">— 24h 区间</td><td class="r mono" colspan="3" style="text-align:right;color:var(--mut)">$60,104 – $62,200 · VWAP $61,346</td></tr>
+          <tr><td class="k">— 24h 区间</td><td class="r mono" colspan="3" style="text-align:right;color:var(--mut)">$60,104–62,200 · VWAP 61,346</td></tr>
           <tr><td class="k">ETH</td><td class="r mono">$1,706</td><td class="r up">+4.2%</td><td class="r up">+9.8%</td></tr>
-          <tr><td class="k">— 24h 区间</td><td class="r mono" colspan="3" style="text-align:right;color:var(--mut)">$1,614 – $1,725</td></tr>
-          <tr><td class="k">ETH/BTC</td><td class="r mono">0.0278</td><td class="r up">走升</td><td class="r flat">7/1 0.0269</td></tr>
-          <tr><td class="k">总市值 / 量</td><td class="r mono">$2.21T</td><td class="r up">+0.9%</td><td class="r flat">量 $88B</td></tr>
+          <tr><td class="k">— 24h 区间</td><td class="r mono" colspan="3" style="text-align:right;color:var(--mut)">$1,614–1,725</td></tr>
+          <tr><td class="k">ETH/BTC</td><td class="r mono">0.0278</td><td class="r up">走升</td><td class="r flat">7/1 .0269</td></tr>
+          <tr><td class="k">总市值/量</td><td class="r mono">$2.21T</td><td class="r up">+0.9%</td><td class="r flat">量$88B</td></tr>
           <tr><td class="k">BTC 主导率</td><td class="r mono">55.6%</td><td class="r down">略降</td><td class="r flat">ETH 9.3%</td></tr>
         </tbody>
       </table>
       <div class="cbox">
-        <h4>BTC 多空价位阶梯</h4>
-        <div class="cs">阻力(红) / 现价(金) / 支撑(绿)</div>
+        <h4>BTC 价位阶梯（技术 × 链上）</h4>
+        <div class="cs">红=阻力 金=现价 绿=支撑 紫=链上成本</div>
         <div class="ladder" style="margin-top:6px">
-          <div class="row res"><div class="px">74,000</div><div class="bar"><span style="width:100%;background:rgba(246,70,93,.25)"></span></div><div class="tg">长期区间顶</div></div>
-          <div class="row res"><div class="px">65,000</div><div class="bar"><span style="width:70%;background:rgba(246,70,93,.3)"></span></div><div class="tg">阻力</div></div>
-          <div class="row res"><div class="px">63,000</div><div class="bar"><span style="width:55%;background:rgba(246,70,93,.35)"></span></div><div class="tg">中期阻力</div></div>
-          <div class="row res"><div class="px">62,200</div><div class="bar"><span style="width:44%;background:rgba(246,70,93,.5)"></span></div><div class="tg">24h高·清算簇</div></div>
-          <div class="row now"><div class="px">61,400</div><div class="bar"><span style="width:40%;background:var(--amber)"></span></div><div class="tg">◀ 现价</div></div>
-          <div class="row sup"><div class="px">60,000</div><div class="bar"><span style="width:36%;background:rgba(34,197,94,.5)"></span></div><div class="tg">24h低·整数·清算簇</div></div>
-          <div class="row sup"><div class="px">58,000</div><div class="bar"><span style="width:26%;background:rgba(34,197,94,.35)"></span></div><div class="tg">支撑</div></div>
-          <div class="row sup"><div class="px">55-53K</div><div class="bar"><span style="width:14%;background:rgba(34,197,94,.25)"></span></div><div class="tg">区间底·强支撑</div></div>
+          <div class="row res"><div class="px">74,000</div><div class="bar"><span style="width:100%;background:rgba(246,70,93,.22)"></span></div><div class="tg">长期区间顶</div></div>
+          <div class="row oc"><div class="px">69,349</div><div class="bar"><span style="width:82%;background:rgba(167,139,250,.5)"></span></div><div class="tg">STH成本·套牢墙</div></div>
+          <div class="row res"><div class="px">65,000</div><div class="bar"><span style="width:66%;background:rgba(246,70,93,.3)"></span></div><div class="tg">阻力</div></div>
+          <div class="row res"><div class="px">63,000</div><div class="bar"><span style="width:56%;background:rgba(246,70,93,.35)"></span></div><div class="tg">中期阻力</div></div>
+          <div class="row res"><div class="px">62,200</div><div class="bar"><span style="width:46%;background:rgba(246,70,93,.5)"></span></div><div class="tg">24h高·清算簇</div></div>
+          <div class="row now"><div class="px">61,400</div><div class="bar"><span style="width:42%;background:var(--amber)"></span></div><div class="tg">◀ 现价</div></div>
+          <div class="row sup"><div class="px">60,000</div><div class="bar"><span style="width:38%;background:rgba(34,197,94,.5)"></span></div><div class="tg">整数·清算簇</div></div>
+          <div class="row sup"><div class="px">58,000</div><div class="bar"><span style="width:30%;background:rgba(34,197,94,.35)"></span></div><div class="tg">支撑</div></div>
+          <div class="row oc"><div class="px">52,640</div><div class="bar"><span style="width:20%;background:rgba(167,139,250,.4)"></span></div><div class="tg">全网Realized</div></div>
+          <div class="row oc"><div class="px">49,185</div><div class="bar"><span style="width:12%;background:rgba(167,139,250,.35)"></span></div><div class="tg">LTH成本·强支撑</div></div>
         </div>
       </div>
     </div>
-    <div class="read"><span class="ld">技术面：</span>BTC 日内触 <b>$62,200</b> 后回落整理于 VWAP（$61,346）附近，走势处中长期<b>下降通道</b>（结构偏空），但 RSI 对价格<b>正背离</b>（反弹信号）。关键在 <b>$62K</b>：收复并站稳则打开 $63K（中期阻力）→ $65K；失守 <b>$60K</b>（整数＋清算簇）则回落 $58K / 区间底 $55-53K。ETH 重夺 $1,700、相对强势，阻力 $1,725 → $1,750 / $1,800，支撑 $1,614。</div>
+    <div class="read"><span class="ld">技术 × 链上：</span>BTC 处中长期<b>下降通道</b>但 RSI 正背离。真正的分水岭是<b>链上短期持有者成本 $69,349</b>——现价在其<b>下方 = recent buyers 集体套牢</b>，$69K 上方是密集获利回本的供给墙，未收复前反弹易遇抛压；反之全网 Realized $52.6K 与 LTH 成本 $49.2K 构成坚实下方成本支撑。<b>短期路线图：$62K（收复）→ $63K/65K（阻力）→ $69K（趋势多头确认）；下破 $60K → $58K → Realized $52.6K。</b>ETH 重夺 $1,700、相对强势，阻力 $1,725/1,750/1,800。</div>
   </div>
 
-  <!-- 04 DERIVATIVES -->
+  <!-- 04 DERIVATIVES (REAL) -->
   <div class="panel">
-    <div class="ph"><span class="no">04</span><h2>衍生品结构 · 持仓 / 资金费率 / 隐含波动率</h2><span class="tag">7/3 即时</span></div>
-    <table>
-      <thead><tr><th>维度</th><th class="r">数值 / 状态</th><th>解读</th></tr></thead>
-      <tbody>
-        <tr><td class="k">BTC 未平仓 OI</td><td class="r mono">~$46B</td><td>较年内高点回落，杠杆未过热</td></tr>
-        <tr><td class="k">24h 期货成交量</td><td class="r mono">~$66B</td><td>现货仅 $6B → 期货主导、现货薄</td></tr>
-        <tr><td class="k">24h 全网爆仓</td><td class="r mono">~$114M</td><td>规模温和，无踩踏式去杠杆</td></tr>
-        <tr><td class="k">永续资金费率</td><td class="r mono">近中性 <span class="badge b-am">估</span></td><td>爆仓温和＋无极端 → 多头未过度拥挤（精确值需实时源）</td></tr>
-        <tr><td class="k">隐含波动率 DVOL</td><td class="r mono">低体制 36–45 <span class="badge b-am">区间</span></td><td>5 月曾探 36（九个月低）；低 IV = 期权便宜、预期波动压缩</td></tr>
-        <tr><td class="k">IV 期限结构 (1–30d)</td><td class="r mono">CPI 事件前置</td><td>7 月中 CPI 为已知事件风险，短端 IV 易相对 30d 偏高（需 Deribit 实时确认）</td></tr>
-      </tbody>
-    </table>
-    <div class="read"><span class="ld">衍生品含义：</span>OI 温和、爆仓小、资金费率近中性——<b>杠杆结构健康、无过热</b>，这降低急跌式清算风险，也意味本波并非杠杆逼空推动。低 IV 体制下，<b>期权做多波动率（跨式/日历价差）性价比较高</b>，尤其针对 7 月中 CPI 的事件驱动。（注：资金费率精确百分比、DVOL 当前读数与完整 1–30 天期限结构，公开源无法实时抓取，上表以体制区间与近月数据呈现，已于文末标注。）</div>
-  </div>
-
-  <!-- 05 ON-CHAIN + FLOWS -->
-  <div class="panel">
-    <div class="ph"><span class="no">05</span><h2>链上筹码与资金流</h2><span class="tag">ETF 最新 2026-07-01</span></div>
+    <div class="ph"><span class="no">04</span><h2>衍生品结构 · 资金费率 / IV 期限结构</h2><span class="tag">Deribit 实抓 7/3</span></div>
     <div class="cols3">
       <table>
-        <thead><tr><th>现货 ETF（7/1，最新公布日）</th><th class="r">净流</th></tr></thead>
+        <thead><tr><th>指标</th><th class="r">数值</th><th>解读</th></tr></thead>
         <tbody>
-          <tr><td class="k">比特币 ETF 合计</td><td class="r mono down">−$277M</td></tr>
-          <tr><td class="k">— IBIT（贝莱德）</td><td class="r mono down">−$224M</td></tr>
-          <tr><td class="k">— GBTC（灰度）</td><td class="r mono down">−$62.8M</td></tr>
-          <tr><td class="k">— Grayscale Mini / MSBT</td><td class="r mono up">+$36M / +$30M</td></tr>
-          <tr><td class="k">以太坊 ETF 合计</td><td class="r mono up">+$14.8M</td></tr>
-          <tr><td class="k">— ETHA（贝莱德）</td><td class="r mono up">+$36.6M</td></tr>
+          <tr><td class="k">资金费率 8h (Deribit)</td><td class="r mono">+0.0059%</td><td>近中性，多头不拥挤</td></tr>
+          <tr><td class="k">— 年化 APR</td><td class="r mono">+6.5%</td><td>温和正值</td></tr>
+          <tr><td class="k">— 30d 累积</td><td class="r mono down">−0.42%</td><td>月内净略负→未过热</td></tr>
+          <tr><td class="k">DVOL (30d IV)</td><td class="r mono">40.2</td><td>低体制(5月曾36) → 期权便宜</td></tr>
+          <tr><td class="k">CMV 7d / 30d IV</td><td class="r mono">36.4% / 39.0%</td><td>contango(+2.6pp)</td></tr>
+          <tr><td class="k">前端 1–3d ATM IV</td><td class="r mono">25–29%</td><td>周末/假期压缩，便宜</td></tr>
+          <tr><td class="k">BTC OI(全网)/爆仓</td><td class="r mono">~$46B / $114M</td><td>杠杆不过热</td></tr>
         </tbody>
       </table>
       <div class="cbox">
-        <h4>ETF 净流分歧（US$M · 7/1）</h4>
-        <div class="cs">BTC 失血 · ETH 吸金</div>
-        <div class="cw sm"><canvas id="etf"></canvas></div>
-        <div style="display:flex;gap:10px;margin-top:8px">
-          <div style="flex:1;text-align:center"><div class="lbl" style="color:var(--mut)">恐惧贪婪</div><div class="mono" style="font-size:20px;font-weight:800;color:var(--down)">21</div><div style="font-size:10px;color:var(--faint)">极度恐惧(自11回升)</div></div>
-          <div style="flex:1;text-align:center"><div class="lbl" style="color:var(--mut)">现货量</div><div class="mono" style="font-size:20px;font-weight:800;color:var(--amber)">薄</div><div style="font-size:10px;color:var(--faint)">近23/11低</div></div>
-        </div>
+        <h4>BTC ATM 隐含波动率期限结构</h4>
+        <div class="cs">Deribit 期权链自算 · contango</div>
+        <div class="cw"><canvas id="iv"></canvas></div>
       </div>
     </div>
-    <div class="read"><span class="ld">主力/链上：</span>价格反弹但 <b>BTC 现货 ETF 连续净流出</b>（7/1 −2.77 亿，机构未追价），Grayscale Mini / MSBT 等低费率产品逆势吸金＝存量在<b>费率迁移</b>而非新增配置。链上侧，Glassnode 本周链上主题「区间承压」，<b>鲸鱼借反弹派发、以市场为退出流动性</b>，叠加现货成交量为 2023/11 来最薄——价格强势背后流动性脆弱。<b>ETH ETF 逆势净流入</b>与 ETH 价格领涨相互印证，边际资金偏好补涨的 ETH。<b>确认反弹升级的关键＝BTC ETF 由负转正。</b>（注：链上成本分布带/URPD、鲸鱼净流精确值需 Glassnode/CryptoQuant 付费源，此处为方向性读数。）</div>
+    <div class="read"><span class="ld">衍生品含义：</span>资金费率近中性、30d 累积略负、爆仓温和——<b>杠杆结构健康、多头未拥挤</b>，本波非杠杆逼空推动，降低急跌清算风险。IV 侧：DVOL 40 处低区、期限<b>contango</b>（前端 1–3d 因假期压缩至 25–29%，7–30d 抬升至 36–39%）。<b>交易含义：低 IV + 前端便宜 → 做多 7–30d 腹部波动率（跨式/日历价差）以低成本布局 7 月中 CPI 事件</b>，赔率优于追现货。</div>
   </div>
 
-  <!-- 06 POSITIONING / KOL -->
+  <!-- 05 ONCHAIN + FLOWS (REAL) -->
+  <div class="panel">
+    <div class="ph"><span class="no">05</span><h2>链上筹码与资金流</h2><span class="tag">链上 bitcoin-data.com · ETF 7/1</span></div>
+    <div class="cols3">
+      <table>
+        <thead><tr><th>链上估值/成本 <span class="badge b-live">实抓</span></th><th class="r">数值</th><th>信号</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Realized Price(全网成本)</td><td class="r mono">$52,640</td><td>现价高于成本，整体浮盈</td></tr>
+          <tr><td class="k">STH 短期持有成本</td><td class="r mono down">$69,349</td><td>&gt;现价 → 套牢·上方供给墙</td></tr>
+          <tr><td class="k">LTH 长期持有成本</td><td class="r mono up">$49,185</td><td>&lt;现价 → 深度获利·派发力</td></tr>
+          <tr><td class="k">MVRV</td><td class="r mono">1.17</td><td>轻度浮盈，未过热</td></tr>
+          <tr><td class="k">NUPL</td><td class="r mono">0.145</td><td>「乐观」低区</td></tr>
+          <tr><td class="k">MVRV Z-Score</td><td class="r mono">0.25</td><td>近价值/累积区，非顶部</td></tr>
+        </tbody>
+      </table>
+      <div class="cbox">
+        <h4>现货 ETF 净流分歧（7/1，最新公布日）</h4>
+        <div class="cs">BTC 失血 · ETH 吸金</div>
+        <div class="cw sm"><canvas id="etf"></canvas></div>
+        <table style="margin-top:6px;font-size:11.5px">
+          <tbody>
+            <tr><td class="k">BTC ETF 合计</td><td class="r mono down">−$277M</td><td class="k">IBIT −$224M</td></tr>
+            <tr><td class="k">ETH ETF 合计</td><td class="r mono up">+$14.8M</td><td class="k">ETHA +$36.6M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="read"><span class="ld">链上/资金流综合：</span>估值端 MVRV 1.17 / NUPL 0.145 / Z 0.25 <b>处「乐观」低区，非顶部泡沫</b>，中期下行有成本支撑。但结构分化明显：<b>STH 成本 $69.3K 高悬现价上方（套牢盘＝供给）、LTH 成本 $49.2K 深度获利（派发端）</b>，叠加 <b>BTC 现货 ETF 连续净流出</b>（机构未追价，Grayscale Mini/MSBT 逆势吸金＝存量费率迁移而非新增）、鲸鱼借反弹派发、现货量为 2023/11 来最薄——<b>价格强势背后是薄流动性 + 分配格局</b>。ETH ETF 逆势净流入与 ETH 领涨互印。<b>反弹升级的双确认＝BTC ETF 转净流入 + 站上 STH 成本 $69K。</b></div>
+  </div>
+
+  <!-- 06 POSITIONING -->
   <div class="panel">
     <div class="ph"><span class="no">06</span><h2>持仓 · 交易含义 · 多空/KOL 观点分布</h2></div>
     <div class="pb">
       <div class="cols">
-        <div class="box bull">
-          <h5>▲ 多头论点</h5>
-          <ul>
-            <li>美联储转鸽、实际收益率/美元双降，宏观顺风</li>
-            <li>ETH 领涨 + ETH ETF 净流入，风险偏好回升</li>
-            <li>RSI 对价格正背离；收复 $60K 整数</li>
-            <li>杠杆未过热、爆仓温和，急跌风险低</li>
-            <li>目标：站稳 $62K → 回测 $63K / $65K</li>
-          </ul>
-        </div>
-        <div class="box bear">
-          <h5>▼ 空头论点</h5>
-          <ul>
-            <li>中长期<b>下降通道</b>未破，结构偏空</li>
-            <li>BTC ETF 持续流出＝无机构承接</li>
-            <li>鲸鱼派发 + 现货量为 23/11 来最薄，流动性脆弱</li>
-            <li>「坏消息即好消息」有极限，增长放缓风险</li>
-            <li>失守 $60K → 下看 $58K / $55-53K</li>
-          </ul>
-        </div>
+        <div class="box bull"><h5>▲ 多头论点</h5><ul>
+          <li>美联储转鸽、实际收益率/美元双降</li>
+          <li>ETH 领涨 + ETH ETF 净流入</li>
+          <li>估值低区(MVRV 1.17/Z 0.25)，下行有底</li>
+          <li>杠杆未过热、资金费率中性，急跌风险低</li>
+          <li>RSI 正背离；目标 $62K→$63/65K</li>
+        </ul></div>
+        <div class="box bear"><h5>▼ 空头论点</h5><ul>
+          <li>净流动性退潮(RRP 枯竭、准备金↓)</li>
+          <li>STH 成本 $69K 高悬 → 套牢供给墙</li>
+          <li>BTC ETF 持续流出 + 鲸鱼派发</li>
+          <li>中长期下降通道未破，现货量极薄</li>
+          <li>失守 $60K → $58K / Realized $52.6K</li>
+        </ul></div>
       </div>
-      <div class="read" style="padding:14px 2px 0"><span class="ld">综合定位（KOL 观点分布偏「短多中性、中期分歧」）：</span>分析面呈现拉锯——技术派（如 Investtech）标注下降通道但承认 RSI 正背离带来的反弹窗口；链上派（Glassnode/CryptoQuant）强调鲸鱼派发与薄流动性、偏谨慎；宏观派因美联储转鸽偏建设性。<b>净结论：短线中性偏多的超跌反弹，尚未转为趋势多头。</b>操作上——$60K 上方可博反弹、但严设止损于 $59.5K 下方；<b>唯有收复 $62K 且 ETF 转流入，才升级为趋势级做多</b>；追高（>$63K 无量能配合）性价比低。</div>
+      <div class="read pb0"><span class="ld">综合定位（KOL 分布：短多中性、中期分歧）：</span>技术派认下降通道但认可 RSI 正背离；链上派(Glassnode/CryptoQuant)强调派发＋薄流动性偏谨慎；宏观派因鸽派重定价偏建设性；估值派因 MVRV/NUPL 低区认为中期风险有限。<b>净结论：短线中性偏多的超跌反弹，尚未转趋势多头。</b>操作——$60K 上方可博反弹，止损 $59.5K 下方；<b>收复 $62K + ETF 转流入＝升级做多，站上 STH 成本 $69K＝趋势确认</b>；无量能追高(>$63K)赔率低。期权：低 IV 下买 7–30d 腹部波动率布局 CPI。</div>
     </div>
   </div>
 
-  <!-- 07 CATALYSTS + CALENDAR -->
+  <!-- 07 CATALYSTS -->
   <div class="panel">
-    <div class="ph"><span class="no">07</span><h2>催化剂与本周关注</h2><span class="tag">过去 24–48h / 前瞻</span></div>
+    <div class="ph"><span class="no">07</span><h2>催化剂与本周关注</h2><span class="tag">24–48h / 前瞻</span></div>
     <div class="pb">
-      <div class="ni"><div class="im im-h">高</div><div><div class="nt">6 月非农 +5.7 万远逊预期，美联储加息押注降温</div><div class="nd">失业率 4.2%、前两月下修 7.4 万；Warsh 称通胀风险软化，加息概率 54%→47%——本日跨资产行情引擎。</div><div class="sc">crypto.news · Yahoo Finance · Investing.com</div></div></div>
-      <div class="ni"><div class="im im-h">高</div><div><div class="nt">BTC 盘中破 $62K、与科技股脱钩上行；ETH、XRP 齐涨</div><div class="nd">BTC 触 $62,038/62,200 本月新高后整理；ETH 单日 +4% 领涨。</div><div class="sc">CryptoBriefing · Yahoo Finance</div></div></div>
-      <div class="ni"><div class="im im-m">中</div><div><div class="nt">BTC 现货 ETF 续流出 −2.77 亿（7/1），机构未追价</div><div class="nd">IBIT −2.24 亿领跌；反弹缺乏机构承接，为持续性隐忧。</div><div class="sc">Farside/Bitbo · KuCoin</div></div></div>
-      <div class="ni"><div class="im im-m">中</div><div><div class="nt">加州加密新规 7/1 生效；稳定币相关规范 7/18 接续</div><div class="nd">州级监理里程碑，合规框架逐步落地。</div><div class="sc">LW US Crypto Policy Tracker</div></div></div>
-      <div class="ni"><div class="im im-b">前瞻</div><div><div class="nt">本周日程（台北 UTC+8）</div><div class="nd"><b>7/3</b> 美股休市（独立日观察日）· <b>7/6</b> 美股重开 · <b>7/8</b> FOMC 6 月纪要 · <b>7 月中</b> 🔑 6 月 CPI（本波关键检验）· <b>7/29</b> 下次 FOMC。</div><div class="sc">Kiplinger · CME · Federal Reserve</div></div></div>
+      <div class="ni"><div class="im im-h">高</div><div><div class="nt">6 月非农 +5.7 万远逊预期，美联储加息押注降温</div><div class="nd">失业率 4.2%、前两月下修 7.4 万；Warsh 称通胀软化，加息概率 54%→47%——本日跨资产引擎。</div><div class="sc">crypto.news · Yahoo · Investing.com</div></div></div>
+      <div class="ni"><div class="im im-h">高</div><div><div class="nt">BTC 盘中破 $62K、与科技股脱钩上行；ETH、XRP 齐涨</div><div class="nd">BTC 触 $62,200 本月新高后整理；ETH +4% 领涨。</div><div class="sc">CryptoBriefing · Yahoo</div></div></div>
+      <div class="ni"><div class="im im-m">中</div><div><div class="nt">BTC 现货 ETF 续流出 −2.77 亿(7/1)，机构未追价</div><div class="nd">IBIT −2.24 亿领跌；反弹缺乏机构承接。</div><div class="sc">Farside/Bitbo · KuCoin</div></div></div>
+      <div class="ni"><div class="im im-m">中</div><div><div class="nt">加州加密新规 7/1 生效；稳定币规范 7/18 接续</div><div class="nd">州级监理里程碑。</div><div class="sc">LW Policy Tracker</div></div></div>
+      <div class="ni"><div class="im im-b">前瞻</div><div><div class="nt">本周日程（台北 UTC+8）</div><div class="nd"><b>7/3</b> 美股休市 · <b>7/6</b> 重开 · <b>7/8</b> FOMC 纪要 · <b>7 月中</b> 🔑 6 月 CPI · <b>7/29</b> FOMC。</div><div class="sc">Kiplinger · CME · Fed</div></div></div>
     </div>
   </div>
 
@@ -339,45 +316,38 @@
   <div class="panel">
     <div class="ph"><span class="no">✓</span><h2>交叉验证与数据说明</h2></div>
     <table>
-      <thead><tr><th>关键数字</th><th>主来源</th><th>第二/第三来源</th><th class="r">结果</th></tr></thead>
+      <thead><tr><th>关键数字</th><th>主来源</th><th>第二来源</th><th class="r">结果</th></tr></thead>
       <tbody>
-        <tr><td class="k">BTC 现价</td><td class="mono">CoinGecko $61,373</td><td class="mono">Binance $61,426（Coinglass $63.5K 离群，弃用）</td><td class="r up">一致</td></tr>
-        <tr><td class="k">ETH 现价</td><td class="mono">CoinGecko $1,705.8</td><td class="mono">Binance $1,706.7</td><td class="r up">一致</td></tr>
-        <tr><td class="k">标普/道指</td><td class="mono">TradingEconomics 7,499 / 52,980</td><td class="mono">+0.2% / +1.1%（对 7/1 基准）</td><td class="r up">一致</td></tr>
-        <tr><td class="k">BTC ETF 净流</td><td class="mono">Bitbo/Farside −$276.6M(7/1)</td><td class="mono">KuCoin −$296M</td><td class="r up">同向</td></tr>
-        <tr><td class="k">恐惧贪婪</td><td class="mono">Alternative.me 21</td><td class="mono">feargreedmeter 15</td><td class="r up">分级一致</td></tr>
+        <tr><td class="k">BTC 现价</td><td class="mono">CoinGecko $61,373</td><td class="mono">Binance.vision $61,426</td><td class="r up">一致</td></tr>
+        <tr><td class="k">资金费率/DVOL/IV</td><td class="mono">Deribit API 实抓</td><td class="mono">期权链自算 CMV</td><td class="r up">实数</td></tr>
+        <tr><td class="k">链上成本/估值</td><td class="mono">bitcoin-data.com 实抓</td><td class="mono">—</td><td class="r up">实数</td></tr>
+        <tr><td class="k">净流动性</td><td class="mono">FRED (WALCL/TGA/RRP)</td><td class="mono">gurufocus $5.85T</td><td class="r up">一致</td></tr>
+        <tr><td class="k">BTC ETF 净流</td><td class="mono">Bitbo/Farside −$277M</td><td class="mono">KuCoin −$296M</td><td class="r up">同向</td></tr>
       </tbody>
     </table>
     <div class="note">
-      <b>数据说明（诚实披露）：</b>① 7/3 美股休市（独立日观察日），传统市场为 <b>7/2 收盘</b>；加密/利率/汇率/商品为 7/3 台北早晨即时。② <b>ETF 已确认最新公布日为 7/1</b>（7/2 数据尚未发布）。③ 以下指标无实时公开源、以「体制区间＋近月数据＋方向性框架」呈现，<b>非当日精确抓取值</b>，已在正文标注：永续资金费率精确百分比、DVOL 当前读数及完整 1–30 天 IV 期限结构、链上成本分布带(URPD)/鲸鱼净流精确值、美联储净流动性/弹性指标。④ 恐惧贪婪各家 15–21，均属「极度恐惧」。⑤ 付费墙来源（彭博/路透/CNBC/TheStreet 部分页）以公开权威源交叉验证。<b>本报告严格不编造任何数字。</b>
+      <b>数据来源与限制（诚实披露）：</b>① 本版<b>衍生品(Deribit)、链上(bitcoin-data.com)、净流动性(FRED 数据)均为实抓/自算</b>，非估值。② <b>资金费率仅 Deribit</b>——你本机 IP 地理封锁 Binance(451)/Bybit(403)/OKX(超时)，多所简均/OI 加权/离散度暂缺；补齐需 VPN 或 Coinalyze 免费聚合 key。③ 净流动性为 FRED 最新公布(约 6/24)，日频精确值需你的免费 FRED API key。④ URPD/CBD 成本分布(按你意见)暂以 Glassnode/CryptoQuant Studio 手动观察，正式 API 后续接 Glassnode。⑤ 7/3 美股休市，传统市场为 7/2 收盘。⑥ ETF 最新公布日 7/1（7/2 待发布）。<b>全程不编造数字。</b>
     </div>
   </div>
 
   <footer>
-    <div>SOURCES · CoinGecko · Binance · Alternative.me · CoinGlass · Bitbo/Farside · Trading Economics · Investing.com · Yahoo Finance · CryptoBriefing · crypto.news · KuCoin · Glassnode · CryptoQuant · Investtech · Deribit · CME FedWatch · US BLS / Federal Reserve</div>
+    <div>SOURCES · Deribit · bitcoin-data.com · CoinGecko · Binance(vision) · FRED · Bitbo/Farside · Trading Economics · Yahoo · CryptoBriefing · crypto.news · KuCoin · Glassnode · Investtech · CME FedWatch · US BLS/Fed</div>
     <div class="disc">本报告由自动化流程抓取多来源即时数据、交叉验证后生成，仅供参考，不构成投资建议。加密货币波动剧烈，杠杆有强平风险，请自行评估。</div>
   </footer>
 
 </div>
-
 <script>
-const UP='#22c55e', DOWN='#f6465d', AMBER='#e0a83c', GOLD='#c99a3a', GREY='#5c6472', GRID='#1a212c';
-Chart.defaults.font.family="'JetBrains Mono','Inter',monospace";
-Chart.defaults.font.size=10;
-Chart.defaults.color='#89909f';
-
-// cross-asset
+const UP='#22c55e',DOWN='#f6465d',AMBER='#e0a83c',CYAN='#38bdf8',GRID='#1a212c';
+Chart.defaults.font.family="'JetBrains Mono','Inter',monospace";Chart.defaults.font.size=10;Chart.defaults.color='#89909f';
 (()=>{const d=[['ETH',4.2],['道指',1.14],['黄金',0.4],['标普',0.2],['BTC',0.7],['DXY',-0.6],['纳指',-1.6],['WTI',-2.0]];
-new Chart(document.getElementById('cross'),{type:'bar',
- data:{labels:d.map(x=>x[0]),datasets:[{data:d.map(x=>x[1]),backgroundColor:d.map(x=>x[1]>=0?UP:DOWN),borderRadius:2,maxBarThickness:30}]},
- options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y+'%'}}},
- scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}}});})();
-
-// ETF divergence
-new Chart(document.getElementById('etf'),{type:'bar',
- data:{labels:['BTC ETF','ETH ETF'],datasets:[{data:[-277,14.8],backgroundColor:[DOWN,UP],borderRadius:2,maxBarThickness:52}]},
- options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y+'M'}}},
- scales:{x:{grid:{display:false}},y:{grid:{color:GRID},ticks:{callback:v=>'$'+v+'M'}}}}});
+new Chart(document.getElementById('cross'),{type:'bar',data:{labels:d.map(x=>x[0]),datasets:[{data:d.map(x=>x[1]),backgroundColor:d.map(x=>x[1]>=0?UP:DOWN),borderRadius:2,maxBarThickness:28}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y+'%'}}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}}});})();
+// IV term structure (real, self-computed)
+new Chart(document.getElementById('iv'),{type:'line',
+ data:{labels:['1d','2d','3d','7d','14d','21d','28d','56d'],datasets:[{data:[28.8,25.5,26.7,36.6,38.0,38.7,38.9,39.8],borderColor:CYAN,backgroundColor:'rgba(56,189,248,.12)',fill:true,tension:.3,pointRadius:3,pointBackgroundColor:CYAN,borderWidth:2}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'ATM IV '+c.parsed.y+'%'}}},scales:{x:{grid:{display:false}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}}});
+new Chart(document.getElementById('etf'),{type:'bar',data:{labels:['BTC ETF','ETH ETF'],datasets:[{data:[-277,14.8],backgroundColor:[DOWN,UP],borderRadius:2,maxBarThickness:52}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y+'M'}}},scales:{x:{grid:{display:false}},y:{grid:{color:GRID},ticks:{callback:v=>'$'+v+'M'}}}}});
 </script>
 </body>
 </html>
